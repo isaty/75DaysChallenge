@@ -6,6 +6,7 @@ public:
         if(target==0)
         {
             res.push_back(out);
+            return;
         }
         
         for(int j=i;j<candidates.size();j++)
