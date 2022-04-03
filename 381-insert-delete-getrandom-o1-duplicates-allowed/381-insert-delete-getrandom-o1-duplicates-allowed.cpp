@@ -10,9 +10,7 @@ public:
         bool k=true;
         
         if(mp.find(val)!=mp.end() && mp[val].size()>0)
-        {
-            cout<<mp[val].size();
-            k=false;}
+            k=false;
         
         mp[val].push_back(arr.size());
         arr.push_back(val);
@@ -25,21 +23,19 @@ public:
         if(mp.find(val)==mp.end() || mp[val].size()<=0)
             return false;
         
-        int mp_idx=mp[val].size()-1;
-        int vec_idx=mp[val][mp_idx];
-        // cout<<vec_idx;
         //last element
         int last=arr.back();
-        int mp_lidx=mp[last].size()-1;
         
+        //preventing edge cases
         if(last==val)
         {
-            
             mp[last].pop_back();
             arr.pop_back();
-            // cout<<mp[val].size()<<" "<<mp[last].size();
             return true;
         }
+        
+        //vector index of val
+        int vec_idx=mp[val][mp[val].size()-1];
         
         //swapping
         swap(arr[vec_idx],arr[arr.size()-1]);
