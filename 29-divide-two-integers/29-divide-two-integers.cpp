@@ -2,7 +2,10 @@ class Solution {
 public:
     int divide(int dividend, int divisor) {
         
-        //WRONG IMPLEMENTATION | QUESTION ASKS FOR INTEGER ENVIRONMENT
+        
+        // THIS IS A WRONG IMPLEMENTATION | QUESTION ASKS FOR INTEGER ENVIRONMENT
+        // COULDN'T RESOLVE EDGE CASES FOR THE QUESTION {DIVIDEND=>INT_MAX,DIVISOR>1},etc.
+        
         if(dividend==INT_MIN && divisor==-1)
         {
             return INT_MAX;
