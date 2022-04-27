@@ -11,23 +11,21 @@
  */
 class Solution {
 public:
-    TreeNode* prev=NULL;
+    TreeNode* last=NULL;
     int getMinimumDifference(TreeNode* root) {
         
-        if(root==NULL)return INT_MAX;
+        if(root==NULL)
+            return INT_MAX;
         
         int l=getMinimumDifference(root->left);
         int ans=INT_MAX;
-        if(prev!=NULL)
+        if(last)
         {
-            ans=root->val-prev->val;
+            ans=abs(last->val-root->val);
+            // cout<<ans<<" ";
         }
-        prev=root;
-        
+        last=root;
         int r=getMinimumDifference(root->right);
-        
-        
-        return min(min(l,r),ans);
-        
+        return min(ans,min(l,r));
     }
 };
