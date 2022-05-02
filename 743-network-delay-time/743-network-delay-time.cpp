@@ -8,13 +8,11 @@ public:
         {
             adj[i[0]].push_back({i[1],i[2]});
         }
-        
-        vector<int>vis(n+1,0);
+    
         vector<int>dis(n+1,INT_MAX);
         queue<pair<int,int>>q;
         q.push({0,k});
         dis[k]=0;
-        vis[k]=1;
         
         while(!q.empty())
         {
@@ -28,7 +26,6 @@ public:
                 {
                     dis[i.first]=i.second+d;
                     q.push({d+i.second,i.first});
-                    vis[i.first]=1;
                 }
             }
             
@@ -36,7 +33,7 @@ public:
         
         for(int i=1;i<=n;i++)
         {
-            if(!vis[i])
+            if(dis[i]==INT_MAX)
                 return -1;
             ans=max(ans,dis[i]);
         }
