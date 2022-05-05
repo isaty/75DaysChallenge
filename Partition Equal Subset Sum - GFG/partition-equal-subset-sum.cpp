@@ -9,39 +9,37 @@ using namespace std;
 
 class Solution{
 public:
-    int part(int n, int sum, int arr[],vector<vector<int>>&dp)
+    int subsetSum(int arr[],int n,int sum ,vector<vector<int>>&dp)
     {
         if(n==0)
         {
             if(sum==0)
-              return 1;
-              
-            return 0;  
-        }
-       
-        if(dp[n][sum]!=-1)
-          return dp[n][sum];
-          
-        if(arr[n-1]<=sum)
-        {
-          return dp[n][sum]=part(n-1,sum-arr[n-1],arr,dp)||part(n-1,sum,arr,dp);    
+            return 1;
+            
+            return 0;
         }
         
-        return dp[n][sum]=part(n-1,sum,arr,dp);
+        if(dp[n][sum]!=-1)
+        return dp[n][sum];
+        
+        if(arr[n-1]<=sum)
+        {
+            return dp[n][sum]=subsetSum(arr,n-1,sum-arr[n-1],dp)||subsetSum(arr,n-1,sum,dp);
+        }
+        
+        return dp[n][sum]=subsetSum(arr,n-1,sum,dp);
     }
-    
     int equalPartition(int N, int arr[])
     {
         // code here
         int sum=0;
         sum=accumulate(arr,arr+N,sum);
-        // cout<<sum;
-        if(sum&1)
-         return 0;
-         
+        
+        if(sum%2!=0)
+        return 0;
         sum=sum/2;
         vector<vector<int>>dp(N+1,vector<int>(sum+1,-1));
-        return part(N,sum,arr,dp);
+        return subsetSum(arr,N,sum,dp);
     }
 };
 
