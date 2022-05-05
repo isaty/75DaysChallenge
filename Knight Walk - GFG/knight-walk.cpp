@@ -18,6 +18,7 @@ public:
 	    queue<pair<int,int>>q;
 	    q.push({KnightPos[0],KnightPos[1]});
 	    vector<vector<int>>vis(N+1,vector<int>(N+1,0));
+	    vis[KnightPos[0]][KnightPos[1]]=1;
 	    int movs=0;
 	    
 	    while(!q.empty())
@@ -26,7 +27,6 @@ public:
 	        while(k--)
 	        {
     	        pair<int,int>p=q.front();
-    	        vis[p.first][p.second]=1;
     	        q.pop();
 	            
 	            if(p.first==TargetPos[0] && p.second==TargetPos[1])
