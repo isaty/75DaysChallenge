@@ -1,27 +1,34 @@
 class Solution {
 public:
     vector<vector<int>>res;
-    void recursion(int i, int target,vector<int>& candidates,vector<int>out)
+    void dfs(vector<int>out,vector<int>&nums,int i,int target)
     {
+        // cout<<target<<"\n";
         if(target==0)
         {
             res.push_back(out);
             return;
         }
         
-        for(int j=i;j<candidates.size();j++)
+        if(i>=nums.size())
+            return;
+        
+        for(int j=i;j<nums.size();j++)
         {
-            if(candidates[j]<=target)
+            if(target>=nums[j])
             {
-                out.push_back(candidates[j]);
-                recursion(j,target-candidates[j],candidates,out);
+                // cout<<target-nums[j]<<"\n";
+                out.push_back(nums[j]);
+                dfs(out,nums,j,target-nums[j]);
                 out.pop_back();
             }
         }
     }
     vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        
         vector<int>out;
-        recursion(0,target,candidates,out);
+        sort(candidates.begin(),candidates.end());  
+        dfs(out,candidates,0,target);
         return res;
     }
 };
