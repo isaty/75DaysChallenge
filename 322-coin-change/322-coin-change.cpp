@@ -1,29 +1,28 @@
 class Solution {
 public:
-    
-    int numcoins(vector<int>& coins,int n,int amount,vector<vector<int>>&dp)
+    int dfs(int n,int target,vector<int>& coins,vector<vector<int>>&dp)
     {
-        if(amount==0)
-           return 0;
-        
         if(n==0)
             return INT_MAX-1;
         
-        if(dp[n][amount]!=-1)
-            return dp[n][amount];
+        if(target==0)
+            return 0;
         
-        if(amount>=coins[n-1])
+        if(dp[n][target]!=-1)
+            return dp[n][target];
+        
+        if(coins[n-1]<=target)
         {
-            return dp[n][amount]=min(1+numcoins(coins,n,amount-coins[n-1],dp),numcoins(coins,n-1,amount,dp));
+            return dp[n][target]=min(1+dfs(n,target-coins[n-1],coins,dp),dfs(n-1,target,coins,dp));
         }
         
-        return dp[n][amount]=numcoins(coins,n-1,amount,dp);
-        
+        return dp[n][target]=dfs(n-1,target,coins,dp);
     }
     
     int coinChange(vector<int>& coins, int amount) {
-          vector<vector<int>>dp(coins.size()+1,vector<int>(amount+1,-1));
-          int num=numcoins(coins,coins.size(),amount,dp);
-          return num==INT_MAX-1? -1:num ;    
+        int n=coins.size();
+        vector<vector<int>>dp(n+1,vector<int>(amount+1,-1));
+        int ans=dfs(n,amount,coins,dp);
+        return ans!=INT_MAX-1 ? ans:-1;
     }
 };
