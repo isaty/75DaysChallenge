@@ -10,21 +10,22 @@ using namespace std;
 
 class Solution{
   public:
-    int cuts(int price[],int n,int length,vector<vector<int>>&dp)
-    {
-        if(n==0||length==0)
-        return 0;
-        
-        if(dp[n][length]!=-1)
-        return dp[n][length];
-        
-        if(length>=n)
-        {
-            return dp[n][length]=max(price[n-1]+cuts(price,n,length-n,dp),cuts(price,n-1,length,dp));
-        }
-        
-        return dp[n][length]=cuts(price,n-1,length,dp);
-    }
+     int cuts(int price[], int n,int portion,vector<vector<int>>&dp)
+     {
+         if(n==0 || portion==0)
+           return 0;
+           
+         if(dp[n][portion]!=-1)
+         return dp[n][portion];
+         
+         if(portion>=n)
+         {
+             return dp[n][portion]=max(price[n-1]+cuts(price,portion-n,portion-n,dp),cuts(price,n-1,portion,dp));
+         }
+         
+         return dp[n][portion]=cuts(price,n-1,portion,dp);
+     }
+     
     int cutRod(int price[], int n) {
         //code here
         vector<vector<int>>dp(n+1,vector<int>(n+1,-1));
