@@ -8,29 +8,60 @@ using namespace std;
 class Solution
 {
 	public:
+	int par[1001],size[1001];
+	int find(int a)
+	{
+	    if(par[a]<0)
+	     return a;
+	     
+	    return find(par[a]); 
+	}
+	
+	void unionbyrank(int a,int b)
+	{
+	    if(size[a]>size[b])
+	    {
+	        par[a]=b;
+	        size[b]+=size[a];
+	    }
+	    else
+	    {
+	        par[b]=a;
+	        size[a]+=size[b];
+	    }
+	}
+	
 	//Function to find sum of weights of edges of the Minimum Spanning Tree.
     int spanningTree(int V, vector<vector<int>> adj[])
     {
         // code here
         int cost=0;
-        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
-        pq.push({0,0});
-        vector<int>vis(V+1,0);
-        while(!pq.empty())
+        vector<vector<int>>edges;
+        
+        for(int i=0;i<V;i++)
         {
-            int node=pq.top().second;
-            int weight=pq.top().first;
-            pq.pop();
+            par[i]=-1;
+            size[i]=0;
             
-            if(vis[node])continue;
-            
-            vis[node]=1;
-            cost+=weight;
-            
-            for(vector<int> u:adj[node])
+            for(vector<int>j:adj[i])
             {
-                if(!vis[u[0]])
-                 pq.push({u[1],u[0]});    
+                edges.push_back({j[1],i,j[0]});
+            }
+        }
+        
+        sort(edges.begin(),edges.end());
+        
+        for(vector<int>i:edges)
+        {
+            int wt=i[0];
+            int a=i[1];
+            int b=i[2];
+            
+            int par_a=find(a),par_b=find(b);
+            if(par_a!=par_b)
+            {
+                cost+=wt;
+                unionbyrank(par_a,par_b);
             }
         }
         
