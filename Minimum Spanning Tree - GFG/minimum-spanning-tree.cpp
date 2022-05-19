@@ -22,7 +22,7 @@ class Solution
 	    if(size[a]>size[b])
 	    {
 	        par[a]=b;
-	        size[b]+=size[a];
+	        size[a]+=size[b];
 	    }
 	    else
 	    {
