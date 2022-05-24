@@ -6,6 +6,11 @@ public:
         vector<int>res;
         queue<int>q;
         
+        if(n==1)
+        {
+            res.push_back(0);
+            return res;
+        }
         
         for(vector<int>i:edges)
         {
@@ -19,7 +24,7 @@ public:
         
         for(int i=0;i<n;i++)
         {
-            if(in[i]<=1)
+            if(in[i]==1)
             {
                 q.push(i);
             }
