@@ -1,15 +1,16 @@
 class Solution {
 public:
-    vector<string>ans;
+    vector<string>res;
+    
     void dfs(string s,int open,int close)
     {
-        if(open==0 && close==0)
+        if(close==0 && open==0)
         {
-            ans.push_back(s);
+            res.push_back(s);
             return;
         }
         
-        if(close<open)
+        if(close<open )
             return;
         
         if(open>0)
@@ -18,9 +19,12 @@ public:
         if(close>0)
         dfs(s+")",open,close-1);
     }
+    
     vector<string> generateParenthesis(int n) {
-        int open=n,close=n;
-        dfs("",n,n);
-        return ans;
+        int close=n,open=n;
+        string s="(";
+        open=n-1;
+        dfs(s,open,close);
+        return res;
     }
 };
